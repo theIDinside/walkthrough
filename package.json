@@ -1,0 +1,91 @@
+{
+  "name": "walkthrough",
+  "displayName": "walkthrough",
+  "description": "Walkthrough the work that's pending on phabricator.",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.96.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "*"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "walkthrough.RefreshNeedsRevision",
+        "title": "Refresh the list of 'needs-revision'"
+      },
+      {
+        "command": "walkthrough.RefreshNeedsReview",
+        "title": "Refresh the list of 'needs-review'"
+      },
+      {
+        "command": "walkthrough.RefreshAll",
+        "title": "Refresh user's review queue"
+      },
+      {
+        "command": "walkthrough.InlineCommentClicked",
+        "title": "Called when"
+      },
+      {
+        "command": "walkthrough.InlineCommentAction",
+        "title": "Called when"
+      }
+    ],
+    "menus": {
+      "view/item/context": [
+        {
+          "command": "walkthrough.InlineCommentAction",
+          "when": "viewItem == InlineCommentTreeItem",
+          "group": "navigation"
+        }
+      ]
+    },
+    "views": {
+      "explorer": [
+        {
+          "id": "needsRevision",
+          "name": "Needs revision"
+        },
+        {
+          "id": "needsReview",
+          "name": "Needs review"
+        }
+      ]
+    },
+    "configuration": [
+      {
+        "title": "Walkthrough configuration",
+        "properties": {
+          "walkthrough.token": {
+            "type": "string",
+            "default": null,
+            "description": "The cli token for your phabricator account."
+          },
+          "walkthrough.userId": {
+            "type": "string",
+            "default": null,
+            "description": "The phabricator ID for your user. Can be set explicitly by the user, but should preferably be set by a user.whoAmI request by the extension."
+          }
+        }
+      }
+    ]
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "pretest": "yarn run lint",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.98.0",
+    "@types/mocha": "^10.0.9",
+    "@types/node": "20.x",
+    "eslint": "^9.13.0",
+    "@vscode/test-cli": "^0.0.10",
+    "@vscode/test-electron": "^2.4.1"
+  }
+}
